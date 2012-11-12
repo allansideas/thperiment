@@ -9,17 +9,147 @@
         = csrf_meta_tags
         = yield(:head)
   %body{:class => "#{controller_name} #{action_name}"}
-    %header.navbar.navbar-fixed-top
-      %nav.navbar-inner
-        .container
-          = render 'layouts/navigation'
     #main{:role => "main"}
-      .container
-        .content
-          .row
-            .span12
-              = render 'layouts/messages'
-              = yield
-          %footer
-      / ! end of .container
+      %nav#menu
+        #stamp.left.slide_left_220
+          %h2 THPEREMENTS
+          %p by
+          %h3 Allan
+        .right
+          %ul#nav
+            %li#nav_one
+              One
+            %li#nav_typography
+              Typography
+      #home
+      #one
+      #typography
+        #blur
+        #poem
+          #bar
+          %h1 Rain
+          %h2 A poem by Hone Tuwhare
+          %p
+            Rain
+            %br
+            %br
+            I can hear you
+            %br
+            making small holes
+            %br
+            in the silence
+            %br
+            rain
+            %br
+            %br
+            If I were deaf
+            %br
+            the pores of my skin
+            %br
+            would open to you
+            %br
+            and shut
+            %br
+            %br
+            And I
+            %br
+            should know you
+            %br
+            by the lick of you
+            %br
+            if I were blind
+            %br
+            %br
+            the something
+            %br
+            special smell of you
+            %br
+            when the sun cakes
+            %br
+            the ground
+            %br
+            %br
+            the steady
+            %br
+            drum-roll sound
+            %br
+            you make
+            %br
+            when the wind drops
+            %br
+            %br
+            But if I
+            %br
+            should not hear
+            %br
+            smell or feel or see
+            %br
+            you
+            %br
+            %br
+            you would still
+            %br
+            define me
+            %br
+            disperse me
+            %br
+            wash over me
+            %br
+            rain
+            %br
+            %br
+            %span.serif_italic
+              Hone Tuwhare  1922-2008
+              %br
+      = yield
     / ! end of #main
+
+:coffeescript
+  $(document).ready ->
+    $.each $('#nav li'), (i, item)->
+      setTimeout(()-> 
+        $(item).addClass('fade_in')
+      , i * 500)
+    typography = ()->
+      $('#home').fadeTo(2000, 0)
+      $('#typography').fadeTo(2000, 1)
+      spawn = ()->
+        ary = ["|", "."]
+        colorAry = ["314e64", "2e4455", "21394b", "48708e"]
+        randomColor = "#" + colorAry[Math.floor(colorAry.length * Math.random())]
+        randomValue = ary[Math.floor(ary.length * Math.random())]
+        posAry = [20, 40, 60, 80, 100]
+        $drop = $("<div class='drop'>"+randomValue+"</div>").css(
+          left: $('#bar').offset().left + posAry[Math.floor(posAry.length * Math.random())] + "px"
+          color: randomColor
+        )
+        $drop = $("<div class='drop'>"+randomValue+"</div>").css(
+          left: $('#bar').offset().left + posAry[Math.floor(posAry.length * Math.random())] + "px"
+          color: randomColor
+        )
+        $drop = $("<div class='drop'>"+randomValue+"</div>").css(
+          left: $('#bar').offset().left + posAry[Math.floor(posAry.length * Math.random())] + "px"
+          color: randomColor
+        )
+        $("#bar").append($drop)
+
+      resetDrops = ()->
+        $.each $(".drop"), (i, drop)->
+          if $(drop).offset().top > 800
+            $(drop).css(
+              top: 0
+            )
+
+      setInterval( ()->
+        spawn()
+        resetDrops()
+      , 20) 
+
+    $('#nav').on('click','li', (e)->
+      $target = $(e.currentTarget)
+      id = $target.attr("id")
+      if id == "nav_typography"
+        typography()
+    )
+      
+

@@ -1,25 +1,193 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
- *= require_self
- *= require_tree .
-*/
+@import "bourbon";
+@import "_fonts";
+$baseFontFamily: OpenSansRegular, Helvetica, Arial, sans-serif;
+$boldFontFamily: OpenSansBold, Helvetica, Arial, sans-serif;
+$serifFontFamily: loraregular, Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;;
+$serifFontFamilyBold: lorabold, Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;;
+$serifFontFamilyItalic: loraitalic, Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;;
+$blueDark: #00062c;
+$blueDarker: darken(#00062c, 5%);
+html {
+  overflow-y: scroll;
+}
+body {
+  font-family: $baseFontFamily;
+  padding: 0;
+  margin: 0;
+}
+//Typography
+.serif_italic {
+  font-family: $serifFontFamilyItalic;
+}
 
-.content {
-  background-color: #eee;
-  padding: 20px;
-  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
-  -webkit-border-radius: 0 0 6px 6px;
-  -moz-border-radius: 0 0 6px 6px;
-  border-radius: 0 0 6px 6px;
-  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#home {
+  position: fixed;
+  width: 100%;
+  height: 101%;
+  background: image-url("big-city.jpg") center center no-repeat fixed;
+  @include background-size(cover);
+}
+#home:after { 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: transparent image-url("pattern.png") repeat top left; 
+    z-index: 1;
+}
+
+#typography {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-bottom: 20px;
+  display: none;
+  width: 100%;
+  height: auto;
+  background: transparent image-url("tan_bg.jpg") repeat top left; 
+  opacity: 0;
+  #blur {
+    margin: 300px auto 0 auto;
+    width: 1px;
+    height: 1px;
+    @include border-radius(50%);
+    @include box-shadow(0 0 208px 204px hsla(0, 0%, 0%, 0.04));
+  }
+  #poem {
+    font-family: $serifFontFamily;
+    height: auto;
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: -300px;
+    #bar {
+      text-align: left;
+      position: relative;
+      top: -200px;
+      left: -138px;
+      .drop {
+        position: absolute;
+        font-family: $baseFontFamily;
+        font-size: 10px;
+        font-weight: bold;
+        top: 0;
+        left: 0;
+      }
+    }
+    h1 {
+      font-family: $serifFontFamilyBold;
+      letter-spacing: 1.2px;
+      font-weight: normal;
+      font-size: 3em;
+      margin-bottom: 0px;
+    }
+    h2 {
+      font-family: $serifFontFamilyItalic;
+      margin-top: -14px;
+      font-weight: normal;
+      font-size: 1.53em;
+      margin-bottom: 30px;
+      color: #555;
+      text-align: left;
+      padding-left: 227px;
+    }
+    p {
+      margin-top: 0;
+      color: #333;
+      text-align: left;
+      font-size: 1.19em;
+      padding-left: 249px;
+      line-height: 1.31em;
+    }
+  }
+}
+
+#menu {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  width: 40%;
+  height: 200px;
+  z-index: 10;
+  h2 {
+    font-weight: bold;
+  }
+  .left {
+    float: left;
+    display: inline-block;
+    color: #fff;
+    height: 180px;
+    width: 220px;
+    text-align: center;
+    border-top: solid 8px darken($blueDarker, 5%);
+    background: $blueDarker;
+    opacity: 0.9;
+  }
+  .right {
+    @include transition (opacity 2.0s ease-in 2s);
+    width: auto;
+    float: left;
+    display: inline-block;
+    color: #fff;
+    li {
+      opacity: 1;
+      border-top: solid 4px darken($blueDarker, 5%);
+      background: $blueDarker;
+      padding: 5px 15px 5px 15px;
+    }
+  }
+}
+
+.fade_in {
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: fade_in;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-direction: forward;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay:3s;
+}
+#stamp.slide_left_220 {
+  -webkit-animation-duration: 2s;
+  -webkit-animation-name: slide_left_a;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-direction: forward;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-delay:2s;
+}
+
+.drop {
+  -webkit-animation-duration: 3s;
+  -webkit-animation-name: drop;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-direction: forward;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes slide_left_a {
+from {margin-left: 0;}
+to {margin-left: -220px;}
+}
+
+@-webkit-keyframes fade_in {
+from {opacity: 0;}
+to {opacity: 0.9;}
+}
+
+@-webkit-keyframes drop {
+from {
+  top: 0;
+  opacity: 1;
+}
+to {
+  top: 801px;
+  opacity: 0;
+}
 }
